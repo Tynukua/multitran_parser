@@ -18,8 +18,7 @@ class MultitranWord(object):
             raise ValueError
         self._page.encoding = 'utf-8'
         self._html = BeautifulSoup(
-            self._page.text,
-            features="xml")
+            self._page.text)
         self.transcription = self._html.select_one('td.gray')
         if self.transcription:
             self.transcription = re.search(
