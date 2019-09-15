@@ -39,8 +39,8 @@ if __name__ == "__main__":
             print()
             for tag in translate.translations:
                 try:
-                    pprint(tag.get_text())
-                    input('\n', width = 50)
+                    pprint(tag.get_text(), width=50)
+                    input('\n')
                 except KeyboardInterrupt:
                     print()
                     break
