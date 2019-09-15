@@ -1,7 +1,7 @@
 import re
 from requests import get
 from bs4 import BeautifulSoup
-
+from pprint import pprint
 PATH  = 'https://www.multitran.com/m.exe' 
 
 class MultitranWord(object):
@@ -27,13 +27,20 @@ class MultitranWord(object):
                 self.transcription.get_text() )
             if self.transcription:
                 self.transcription = self.transcription.group(1)
+        self.translations = self._html.select('td.trans')
 
 if __name__ == "__main__":
     while True:
         word_string = input('enter a word: ')
         for word in word_string.split():
             translate = MultitranWord(word)
-            print('\t', end = word)
+            print('', end = word)
+            print('\t', end = translate.transcription)
             print()
-            print('\t'*2, end = translate.transcription)
-            print()
+            for tag in translate.translations:
+                try:
+                    pprint(tag.get_text())
+                    input('\n')
+                except KeyboardInterrupt:
+                    print()
+                    break
