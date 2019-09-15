@@ -1,7 +1,9 @@
 import re
+import sys
+from pprint import pprint
 from requests import get
 from bs4 import BeautifulSoup
-from pprint import pprint
+
 PATH  = 'https://www.multitran.com/m.exe' 
 
 class MultitranWord(object):
@@ -31,7 +33,14 @@ class MultitranWord(object):
 
 if __name__ == "__main__":
     while True:
-        word_string = input('enter a word: ')
+        if len(sys.argv) <= 1:
+            word_string = input('enter a word: ')
+        else: 
+            argvs = sys.argv
+            word_string = ''
+            for file_path in argvs[1:]:
+                with open(file_path, 'rt') as f:
+                    word_string += f.read()
         for word in word_string.split():
             translate = MultitranWord(word)
             print('', end = word)
